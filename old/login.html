@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="./css/login.css">
+</head>
+<body>
+    <div id="header">
+        <div class="logo container">
+            <a href="#"></a>
+        </div>
+    </div>
+    <div id="nav">
+        <div class="nav_pic">
+            <a href="./index.html"></a>
+        </div>
+        <div class="sign-in">
+            <p>账户注册</p>
+            <form>
+                <input type="text" class="txt" placeholder="账号">
+                <input type="password" class="password" placeholder="密码">
+                <br/>
+                <input type="button" value="注册" class="login">
+            </form>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="footer1 container">
+            <p class="p1">罗技官方商城由罗技（中国）科技有限公司授权双齐国际贸易（上海）有限公司负责经营 2019 , all rights reserved</p>
+            <p class="p2">
+                <a href="#">罗技官方网站</a>
+                <a href="#">联系方式</a>
+                <a href="#">隐私声明</a>
+                <a href="#">用户服务协议</a>
+                <a href="#">沪ICP备12002604号</a>
+            </p>
+        </div>
+    </div>
+<script>
+    var user = document.getElementsByClassName('txt')[0];
+    var pass = document.getElementsByClassName('password')[0];
+    var btn = document.getElementsByClassName('login')[0];
+    btn.onclick = function(){
+        var data = null;
+        var repeat = null;
+        if(user.value&&pass.value){
+            if (window.localStorage.getItem('list')){            
+                data = {'username':user.value,'password':pass.value};
+                var dataJson = window.localStorage.getItem('list');
+                dataJson = eval('('+dataJson+')');
+                for(var i=0;i<dataJson.length;i++){
+                    if(dataJson[i].username==data.username){
+                        alert('用户名重复');
+                        repeat = 1;
+                    }
+                }
+                if(repeat==null){
+                    alert('注册成功');
+                    dataJson.push(data);
+                    dataJson = JSON.stringify(dataJson);
+                    window.localStorage.setItem('list',dataJson);
+                    console.log(window.localStorage.getItem('list'))
+                }
+            }
+            else{
+                data = {'username':user.value,'password':pass.value};
+                console.log(data);
+                var arr = [];
+                arr.push(data);
+                arr = JSON.stringify(arr);
+                window.localStorage.setItem('list',arr);
+                alert('注册成功')
+                console.log(window.localStorage.getItem('list'))
+            }
+        }
+    }
+</script>        
+</body>
+</html>
